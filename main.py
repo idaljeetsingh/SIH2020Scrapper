@@ -15,8 +15,6 @@ from bs4 import BeautifulSoup
 import mechanize
 import csv
 
-csv_columns = ['organization', 'problem_title', 'problem_description', 'category', 'domain_bucket', 'youtube_link',
-               'dataset_link', 'ps_number']
 
 # BASE URL
 URL = 'https://www.sih.gov.in/sih2020PS?page='
@@ -63,15 +61,11 @@ for page in range(1, total_pages+1):
     # Extracting useful information
     i = 0
     trs = table.findAll('tr')
-    # print(len(trs))
     for i in range(1, len(trs), 7):
         row = trs[i]
         col = row.findAll('td')
-        # print(col)
         if len(col) == 0:
             continue
-        # print(i)
-        # print(col)
 
         desc_modal = []
         for des in col[2].findAll('tr'):
@@ -109,9 +103,9 @@ for page in range(1, total_pages+1):
             'ps_number': ps_number
         }
         PS.append(data)
-        print(data)
+        # print(data)
 
-print(PS)
+# print(PS)
 csv_file = "SIH 2020 PS.csv"
 try:
     with open(csv_file, 'w') as csvfile:
